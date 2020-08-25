@@ -28,7 +28,7 @@ python train.py <--se1> or <--se2> or <--se-plus> --suffix <model_dir_name>
 To evaluate the models on CIFAR100, run:
 
 ```eval
-python eval.py <model_dir>
+python eval.py <--se1> or <--se2> or <--se-plus> --suffix <model_dir>
 ```
 
 ## Results
