@@ -9,7 +9,6 @@ import sys
 import numpy as np
 import tensorflow as tf
 
-import tqdm
 import argparse
 
 parser = argparse.ArgumentParser()
@@ -34,22 +33,23 @@ num_eval_examples = config['num_eval_examples']
 eval_batch_size = config['eval_batch_size']
 
 # Setting up the data and the model
-model = Model(100, args.se1, args,se2)
+model = Model(100, args.se1, args.se2)
 
 saver = tf.train.Saver(max_to_keep=5)
+tf.summary.image('images nat train', model.x_input, max_outputs=12)
+merged_summaries = tf.summary.merge_all()
 
 def evaluate(sess):
   num_batches = int(math.ceil(num_eval_examples / eval_batch_size))
   total_corr_nat = 0
-  sess.run(model.data['val_init'])
   for ibatch in range(num_batches):
     dict_nat = {
                 model.is_training: False
                 }
-    cur_corr_nat = sess.run(model.num_correct,feed_dict = dict_nat)
+    summary, cur_corr_nat = sess.run([merged_summaries, model.num_correct],feed_dict = dict_nat)
     total_corr_nat += cur_corr_nat
+    summary_writer.add_summary(summary)
   acc_nat = total_corr_nat / num_eval_examples
-  print('model dir: '+args.model_dir)
   print(f'acc_nat: {acc_nat}')
 
 
@@ -60,9 +60,12 @@ with tf.Session() as sess:
         'input_pipeline/batch_size:0': eval_batch_size
     }
     sess.run([model.data['init_data'], model.data['init_batch_size']], data_dict)
+    summary_writer = tf.summary.FileWriter(args.model_dir, sess.graph)
     sess.run(tf.global_variables_initializer())
+    sess.run(model.data['val_init'])
     # restore
     cur_checkpoint = tf.train.latest_checkpoint(args.model_dir)
+    print(cur_checkpoint)
     saver.restore(sess, cur_checkpoint)
     # evaluate
     evaluate(sess)
