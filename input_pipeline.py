@@ -1,3 +1,4 @@
+# based on https://github.com/TropComplique/ShuffleNet-tensorflow
 import tensorflow as tf
 from CONSTANTS import SHUFFLE_BUFFER_SIZE,\
     NUM_THREADS, PREFETCH_BUFFER_SIZE

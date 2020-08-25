@@ -44,7 +44,10 @@ class Model(object):
 
     block_func = self._block
     filters = [32, 64, 128, 256, 512, 1024]
-
+    '''''''''
+    Because of the difference btw the input dimensions of CIFAR and ImageNet, 
+    the stride of some blocks of MobileNet was changed to one.
+    '''''''''
     with tf.variable_scope('unit_1_0'):
       x = block_func(x, filters[0], filters[1], 1, self.se1, self.se2)
 
