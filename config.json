@@ -1,0 +1,25 @@
+{
+  "_comment": "===== MODEL CONFIGURATION =====",
+  "model_dir": "models/model",
+
+  "_comment": "===== DATASET CONFIGURATION =====",
+  "train_tfrecords": "cifar100_train.tfrecord",
+  "val_tfrecords": "cifar100_test.tfrecord",
+
+  "_comment": "===== TRAINING CONFIGURATION =====",
+  "tf_random_seed": 451760341,
+  "np_random_seed": 216105420,
+  "max_num_training_steps": 78000,
+  "num_output_steps": 390,
+  "num_summary_steps": 3900,
+  "num_checkpoint_steps": 780,
+  "training_batch_size": 128,
+  "step_size_schedule": [[0, 0.1], [23400, 0.02], [46800, 0.004], [62400, 0.0008]],
+  "weight_decay": 0.0005,
+  "momentum": 0.9,
+
+  "_comment": "===== EVAL CONFIGURATION =====",
+  "num_eval_examples": 10000,
+  "eval_batch_size": 100,
+  "eval_on_cpu": false
+}
