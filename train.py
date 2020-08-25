@@ -18,6 +18,7 @@ import tensorflow as tf
 import numpy as np
 
 parser = argparse.ArgumentParser()
+parser.add_argument('--se-fusion', action='store_true')
 parser.add_argument('--se-plus', action='store_true')
 parser.add_argument('--se1', help='add se block at sub1', action='store_true')
 parser.add_argument('--se2', help='add se block at sub2', action='store_true')
@@ -26,6 +27,8 @@ args = parser.parse_args()
 
 if args.se_plus:
     from model_mobile_plus import Model
+elif args.se_fusion:
+    from model_mobile_fusion import Model
 else:
     from model_mobile import Model
 
