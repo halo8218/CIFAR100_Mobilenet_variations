@@ -21,8 +21,11 @@ python train.py <--se1> <--se2> <--se-plus> <--se-fusion> --suffix <model_dir_na
 ```
 
 > For example: 
+
 > SE+MobileNet (after depthwise convs) : python train.py --se1
+
 > SE-fusion+MobileNet (after both convs) : python train.py --se-fusion --se1 --se2
+
 > Please specify the path to CIFAR100 tfrecords file in the config.json file.
 
 ## Evaluation
@@ -30,7 +33,7 @@ python train.py <--se1> <--se2> <--se-plus> <--se-fusion> --suffix <model_dir_na
 To evaluate the models on CIFAR100, run:
 
 ```eval
-python eval.py <--se1> <--se2> <--se-plus> <--se-fusion> --suffix <model_dir>
+python eval.py <--se1> <--se2> <--se-plus> <--se-fusion> --model-dir <model_dir>
 ```
 
 ## Results
